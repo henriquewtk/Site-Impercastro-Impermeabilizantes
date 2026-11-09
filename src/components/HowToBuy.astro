@@ -1,0 +1,150 @@
+---
+import Icon from './Icon.astro';
+import { steps, whatsappLink } from '../data/site';
+---
+
+<section id="como-comprar" class="section section--light" aria-labelledby="comprar-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Como comprar</p>
+      <h2 id="comprar-title" class="title-lg">Do WhatsApp ao balcão, em três passos</h2>
+    </div>
+
+    <ol role="list" class="steps">
+      {steps.map((step, i) => (
+        <li class="step" data-reveal style={`--reveal-delay: ${i * 0.1}s`}>
+          <div class="step__marker">
+            <span class="step__num">{i + 1}</span>
+            <span class="step__line" aria-hidden="true"></span>
+          </div>
+          <div class="step__body">
+            <span class="step__icon"><Icon name={step.icon} size={22} /></span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="steps__cta" data-reveal>
+      <a class="btn btn--dark btn--lg" href={whatsappLink()} target="_blank" rel="noopener">
+        <Icon name="chat" />
+        Começar pelo WhatsApp
+      </a>
+      <p>Atendimento de segunda a sexta, em horário comercial.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .step__marker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .step__num {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.125rem;
+  }
+
+  .step__line {
+    flex: 1;
+    height: 1px;
+    background: var(--line-light);
+  }
+
+  .step:last-child .step__line {
+    display: none;
+  }
+
+  .step__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .step__icon {
+    display: block;
+    color: var(--text-muted-light);
+    margin-bottom: 4px;
+  }
+
+  .step h3 {
+    font-size: 1.375rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .step p {
+    color: var(--text-muted-light);
+    max-width: 22rem;
+  }
+
+  .steps__cta {
+    margin-top: clamp(40px, 5vw, 64px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+
+  .steps__cta p {
+    color: var(--text-muted-light);
+    font-size: 0.9375rem;
+  }
+
+  /* Celular / tablet: passos na vertical, linha ligando os números */
+  @media (max-width: 800px) {
+    .steps {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 20px;
+    }
+
+    .step__marker {
+      flex-direction: column;
+      margin-bottom: 0;
+      gap: 0;
+    }
+
+    .step__line {
+      width: 1px;
+      height: auto;
+      min-height: 24px;
+    }
+
+    .step__body {
+      padding-bottom: 32px;
+      padding-top: 8px;
+    }
+
+    .step__icon {
+      display: none;
+    }
+
+    .steps__cta .btn {
+      width: 100%;
+    }
+  }
+</style>

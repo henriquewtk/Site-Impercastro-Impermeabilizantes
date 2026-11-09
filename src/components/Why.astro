@@ -1,0 +1,173 @@
+---
+import Icon from './Icon.astro';
+import { reasons, site } from '../data/site';
+---
+
+<section class="section why" aria-labelledby="why-title">
+  <div class="container">
+    <div id="marcas" class="brands" data-reveal>
+      <p class="eyebrow">Marcas que você encontra aqui</p>
+      <ul role="list" class="brands__list">
+        {site.brands.map((brand) => <li>{brand}</li>)}
+      </ul>
+      <p class="brands__text">
+        Produtos para cada etapa: da preparação da superfície ao acabamento.
+      </p>
+    </div>
+
+    <div class="why__grid">
+      <div class="section-head why__head" data-reveal>
+        <h2 id="why-title" class="title-lg">Uma loja só de impermeabilização</h2>
+        <p class="lead">
+          Aqui não é um corredor dentro de uma loja de material de construção. É o que a gente faz.
+        </p>
+      </div>
+
+      <ul role="list" class="why__list">
+        {reasons.map((item, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 0.08}s`}>
+            <span class="why__icon"><Icon name={item.icon} size={24} /></span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--ink);
+  }
+
+  /* Marcas */
+  .brands {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 16px 48px;
+    padding-bottom: clamp(48px, 6vw, 72px);
+    margin-bottom: clamp(56px, 7vw, 96px);
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .brands .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .brands__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 40px;
+  }
+
+  .brands__list li {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--paper);
+  }
+
+  .brands__text {
+    color: var(--text-muted-dark);
+    max-width: 26rem;
+    justify-self: end;
+  }
+
+  /* Diferenciais */
+  .why__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(40px, 6vw, 96px);
+    align-items: start;
+  }
+
+  .why__head {
+    margin-bottom: 0;
+    position: sticky;
+    top: calc(var(--header-h) + 40px);
+  }
+
+  .why__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .why__list li {
+    display: flex;
+    gap: 20px;
+    padding-block: 28px;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .why__list li:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .why__icon {
+    flex: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(246, 207, 58, 0.45);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+  }
+
+  .why__list h3 {
+    font-size: 1.3125rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .why__list p {
+    color: var(--text-muted-dark);
+    max-width: 34rem;
+  }
+
+  @media (max-width: 900px) {
+    .brands {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .brands__text {
+      justify-self: start;
+    }
+
+    .why__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .why__head {
+      position: static;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .brands__list {
+      gap: 4px 24px;
+    }
+
+    .why__list li {
+      gap: 16px;
+      padding-block: 22px;
+    }
+
+    .why__icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .why__list h3 {
+      font-size: 1.125rem;
+    }
+  }
+</style>

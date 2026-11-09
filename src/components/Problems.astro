@@ -1,0 +1,152 @@
+---
+import Icon from './Icon.astro';
+import { problems, whatsappLink } from '../data/site';
+---
+
+<section id="solucoes" class="section section--light" aria-labelledby="solucoes-title">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Soluções</p>
+      <h2 id="solucoes-title" class="title-lg">Onde está o problema?</h2>
+      <p class="lead">Escolha a situação e fale direto com a loja. A mensagem já vai pronta.</p>
+    </div>
+
+    <ul role="list" class="grid">
+      {problems.map((item, i) => (
+        <li data-reveal style={`--reveal-delay: ${(i % 3) * 0.08}s`}>
+          <a class="card" href={whatsappLink(item.message)} target="_blank" rel="noopener">
+            <span class="card__icon"><Icon name={item.icon} size={26} /></span>
+            <div class="card__body">
+              <h3 class="card__title">{item.title}</h3>
+              <span class="card__text">{item.description}</span>
+              <span class="card__link">
+                Perguntar no WhatsApp
+                <Icon name="arrow" size={18} />
+              </span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .grid li {
+    display: flex;
+  }
+
+  .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--line-light);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--ink);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .card:hover {
+    border-color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .card__icon {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: var(--ink);
+    color: var(--yellow);
+    display: grid;
+    place-items: center;
+  }
+
+  .card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .card__title {
+    font-size: 1.3125rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .card__text {
+    color: var(--text-muted-light);
+    line-height: 1.5;
+  }
+
+  .card__link {
+    margin-top: auto;
+    padding-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
+  .card__link :global(svg) {
+    transition: transform 0.2s ease;
+  }
+
+  .card:hover .card__link :global(svg) {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 960px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Celular: cards compactos, ícone ao lado do texto */
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+    }
+
+    .card__title {
+      font-size: 1.125rem;
+    }
+
+    .card__text {
+      font-size: 0.9375rem;
+    }
+
+    .card__link {
+      padding-top: 6px;
+    }
+  }
+</style>

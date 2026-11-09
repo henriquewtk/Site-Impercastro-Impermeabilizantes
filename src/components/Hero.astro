@@ -1,0 +1,217 @@
+---
+import Icon from './Icon.astro';
+import ChatDemo from './ChatDemo.astro';
+import { site, whatsappLink } from '../data/site';
+---
+
+<section id="inicio" class="hero" aria-labelledby="hero-title">
+  <svg class="hero__wave" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 210 C 260 60, 620 40, 980 120 S 1360 200, 1460 90" />
+    <path d="M-20 236 C 300 100, 660 86, 1000 150 S 1380 220, 1460 130" />
+  </svg>
+
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Loja especializada em impermeabilização<span class="hero__sep"> · </span><br class="hero__br" />Rio Verde, GO</p>
+
+      <h1 id="hero-title" class="title-xl hero__title">
+        Infiltração? Mande uma foto. <em>A gente indica o produto certo.</em>
+      </h1>
+
+      <p class="lead hero__lead">
+        A primeira loja de Rio Verde dedicada só à impermeabilização. Você conta o problema pelo
+        WhatsApp, a gente indica o que usar e quanto comprar, e você retira na loja.
+      </p>
+
+      <div class="hero__ctas">
+        <a class="btn btn--primary btn--lg" href={whatsappLink()} target="_blank" rel="noopener">
+          <Icon name="chat" />
+          Mandar foto no WhatsApp
+        </a>
+        <a class="btn btn--ghost btn--lg" href="#localizacao">
+          <Icon name="pin" />
+          Como chegar
+        </a>
+      </div>
+
+      <p class="hero__brands">
+        Marcas na loja: <strong>{site.brands.join(' · ')}</strong>
+      </p>
+    </div>
+
+    <div class="hero__visual">
+      <ChatDemo />
+    </div>
+  </div>
+
+  <div class="hero__info">
+    <ul role="list" class="container">
+      <li><Icon name="clock" />{site.hours.summary}</li>
+      <li><Icon name="pin" />{site.address.short} · {site.address.district}</li>
+      <li><Icon name="store" />Pedido separado para retirar na loja</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .hero__wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 70px;
+    width: 100%;
+    height: 260px;
+    pointer-events: none;
+    fill: none;
+    stroke: var(--yellow);
+  }
+
+  .hero__wave path:first-child {
+    stroke-opacity: 0.22;
+    stroke-width: 2;
+  }
+
+  .hero__wave path:last-child {
+    stroke-opacity: 0.1;
+    stroke-width: 1.5;
+  }
+
+  .hero__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    align-items: center;
+    gap: clamp(48px, 6vw, 88px);
+    padding-block: clamp(56px, 8vw, 104px) clamp(56px, 8vw, 96px);
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .hero__br {
+    display: none;
+  }
+
+  .hero__title {
+    max-width: 13ch;
+  }
+
+  .hero__title em {
+    font-style: italic;
+    color: var(--yellow);
+  }
+
+  .hero__lead {
+    max-width: 34em;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding-top: 4px;
+  }
+
+  .hero__brands {
+    font-size: 0.9375rem;
+    color: var(--text-soft-dark);
+  }
+
+  .hero__brands strong {
+    color: #e6e0d4;
+    font-weight: 600;
+  }
+
+  .hero__info {
+    position: relative;
+    border-top: 1px solid var(--line-dark);
+    background: var(--ink);
+  }
+
+  .hero__info ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 48px;
+    padding-block: 26px;
+    font-size: 0.9375rem;
+    color: #d9d3c6;
+  }
+
+  .hero__info li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero__info :global(svg) {
+    flex: none;
+    color: var(--yellow);
+    margin-top: 1px;
+  }
+
+  /* Tablet: uma coluna, conversa centralizada */
+  @media (max-width: 960px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero__title {
+      max-width: 16ch;
+    }
+
+    .hero__visual {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .hero__wave {
+      bottom: auto;
+      top: 52%;
+    }
+  }
+
+  /* Celular */
+  @media (max-width: 560px) {
+    .hero__copy {
+      gap: 22px;
+    }
+
+    .hero__sep {
+      display: none;
+    }
+
+    .hero__br {
+      display: inline;
+    }
+
+    .hero__title {
+      font-size: clamp(2.25rem, 10.5vw, 2.6rem);
+    }
+
+    .hero__ctas {
+      flex-direction: column;
+    }
+
+    .hero__ctas .btn {
+      width: 100%;
+    }
+
+    .hero__brands {
+      text-align: center;
+    }
+
+    .hero__info ul {
+      flex-direction: column;
+      padding-block: 22px;
+    }
+  }
+</style>

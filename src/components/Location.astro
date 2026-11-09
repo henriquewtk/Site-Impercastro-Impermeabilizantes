@@ -1,0 +1,204 @@
+---
+import Icon from './Icon.astro';
+import { site, mapsLink, mapsEmbed, whatsappLink } from '../data/site';
+---
+
+<section id="localizacao" class="section location" aria-labelledby="local-title">
+  <div class="container location__grid">
+    <div class="location__info" data-reveal>
+      <p class="eyebrow">Localização</p>
+      <h2 id="local-title" class="title-lg">Venha até a loja</h2>
+
+      <address class="location__address">
+        <Icon name="pin" />
+        <span>
+          {site.address.street}<br />
+          {site.address.district}, {site.address.city} – {site.address.state}<br />
+          CEP {site.address.zip}
+        </span>
+      </address>
+
+      <div class="location__hours">
+        <h3><Icon name="clock" />Horário</h3>
+        <dl>
+          {site.hours.table.map((row) => (
+            <div>
+              <dt>{row.days}</dt>
+              <dd>{row.time}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <p class="location__phone">
+        <Icon name="phone" />
+        <a href={`tel:${site.phone.e164}`}>{site.phone.display}</a>
+        <span>telefone e WhatsApp</span>
+      </p>
+
+      <div class="location__ctas">
+        <a class="btn btn--primary btn--lg" href={whatsappLink()} target="_blank" rel="noopener">
+          <Icon name="chat" />
+          Falar no WhatsApp
+        </a>
+        <a class="btn btn--ghost btn--lg" href={mapsLink} target="_blank" rel="noopener">
+          <Icon name="pin" />
+          Abrir no Google Maps
+        </a>
+      </div>
+    </div>
+
+    <div class="location__map" data-reveal>
+      <iframe
+        src={mapsEmbed}
+        title={`Mapa: localização da ${site.name}`}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .location {
+    background: var(--ink);
+  }
+
+  .location__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(40px, 6vw, 80px);
+    align-items: stretch;
+  }
+
+  .location__info {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .location__info .eyebrow {
+    margin-bottom: -12px;
+  }
+
+  .location__address,
+  .location__phone {
+    display: flex;
+    gap: 12px;
+    font-style: normal;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+
+  .location__address :global(svg),
+  .location__phone :global(svg),
+  .location__hours :global(svg) {
+    flex: none;
+    color: var(--yellow);
+    margin-top: 3px;
+  }
+
+  .location__hours h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .location__hours h3 :global(svg) {
+    margin-top: 0;
+  }
+
+  .location__hours dl {
+    margin: 0;
+    padding-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .location__hours dl div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line-dark);
+  }
+
+  .location__hours dt {
+    color: var(--text-muted-dark);
+  }
+
+  .location__hours dd {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .location__phone {
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+
+  .location__phone a {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+
+  .location__phone a:hover {
+    color: var(--yellow);
+  }
+
+  .location__phone span {
+    color: var(--text-soft-dark);
+    font-size: 0.9375rem;
+  }
+
+  .location__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .location__map {
+    min-height: 440px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line-dark);
+    background: var(--ink-2);
+  }
+
+  .location__map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 440px;
+    border: 0;
+    filter: grayscale(0.35) contrast(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .location__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .location__map,
+    .location__map iframe {
+      min-height: 300px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .location__ctas {
+      flex-direction: column;
+    }
+
+    .location__ctas .btn {
+      width: 100%;
+    }
+  }
+</style>

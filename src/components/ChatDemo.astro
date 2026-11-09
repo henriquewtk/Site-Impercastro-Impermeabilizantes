@@ -1,0 +1,168 @@
+---
+import Icon from './Icon.astro';
+---
+
+<figure class="chat">
+  <div class="chat__window">
+    <div class="chat__head">
+      <span class="chat__avatar"><Icon name="roof" size={22} strokeWidth={2.2} /></span>
+      <span class="chat__who">
+        <strong>Impercastro</strong>
+        <span>Atendimento pelo WhatsApp</span>
+      </span>
+    </div>
+
+    <ol class="chat__body" role="list">
+      <li class="msg msg--client msg--photo" style="--i: 0">
+        <span class="msg__photo" role="img" aria-label="Foto de exemplo: teto de laje com mancha de umidade"></span>
+        <span class="msg__text">Tá infiltrando aqui na laje. O que eu uso?</span>
+      </li>
+      <li class="msg msg--store" style="--i: 1">Recebemos a foto! Qual o tamanho aproximado da área?</li>
+      <li class="msg msg--client" style="--i: 2">Uns 30 m².</li>
+      <li class="msg msg--store" style="--i: 3">
+        Já te passo o produto e a quantidade. Fica separado pra você retirar aqui na loja.
+      </li>
+    </ol>
+  </div>
+  <figcaption>Exemplo ilustrativo de atendimento</figcaption>
+</figure>
+
+<style>
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chat__window {
+    background: var(--ink-2);
+    border: 1px solid var(--line-dark);
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .chat__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.08);
+  }
+
+  .chat__avatar {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+  }
+
+  .chat__who {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.9375rem;
+    line-height: 1.25;
+  }
+
+  .chat__who span {
+    font-size: 0.8125rem;
+    color: var(--text-soft-dark);
+  }
+
+  .chat__body {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .msg {
+    max-width: 84%;
+    padding: 10px 14px;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .msg--client {
+    align-self: flex-end;
+    background: var(--ink-3);
+    border-radius: 16px 16px 4px 16px;
+  }
+
+  .msg--store {
+    align-self: flex-start;
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 500;
+    border-radius: 16px 16px 16px 4px;
+  }
+
+  .msg--photo {
+    max-width: 80%;
+    width: 100%;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .msg__photo {
+    display: block;
+    height: 140px;
+    border-radius: 12px;
+    background:
+      radial-gradient(ellipse 42% 38% at 58% 46%, #6b6352 0%, #8a8270 45%, rgba(138, 130, 112, 0) 75%),
+      radial-gradient(ellipse 22% 18% at 40% 62%, #756c5a 0%, rgba(117, 108, 90, 0) 70%),
+      linear-gradient(160deg, #b9b3a6, #a39c8e);
+  }
+
+  .msg__text {
+    padding: 2px 8px 6px;
+  }
+
+  figcaption {
+    font-size: 0.8125rem;
+    color: #8c8577;
+    padding-left: 4px;
+  }
+
+  /* Mensagens entram em sequência, uma única vez */
+  @media (prefers-reduced-motion: no-preference) {
+    .msg {
+      opacity: 0;
+      animation: msg-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation-delay: calc(0.35s + var(--i) * 0.55s);
+    }
+  }
+
+  @keyframes msg-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .chat__head {
+      padding: 14px 16px;
+    }
+
+    .chat__body {
+      padding: 16px;
+    }
+
+    .msg__photo {
+      height: 120px;
+    }
+  }
+</style>

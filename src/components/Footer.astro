@@ -1,0 +1,138 @@
+---
+import Icon from './Icon.astro';
+import { site, navLinks, whatsappLink } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <img src="/logo.webp" alt={site.name} width="246" height="112" loading="lazy" decoding="async" />
+      <p>Loja especializada em impermeabilização em Rio Verde, GO.</p>
+    </div>
+
+    <nav aria-label="Rodapé">
+      <h2 class="footer__title">Navegação</h2>
+      <ul role="list">
+        {navLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer__title">Contato</h2>
+      <ul role="list">
+        <li>
+          <a href={whatsappLink()} target="_blank" rel="noopener"><Icon name="chat" size={18} />WhatsApp {site.phone.display}</a>
+        </li>
+        <li>
+          <a href={`tel:${site.phone.e164}`}><Icon name="phone" size={18} />Ligar {site.phone.display}</a>
+        </li>
+        <li>
+          <a href={site.instagram.url} target="_blank" rel="noopener"><Icon name="instagram" size={18} />{site.instagram.handle}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer__title">Endereço</h2>
+      <p class="footer__text">
+        {site.address.street}<br />
+        {site.address.district}<br />
+        {site.address.city} – {site.address.state}, {site.address.zip}
+      </p>
+      <p class="footer__text">{site.hours.summary}</p>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>© {year} {site.name}. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #0b0a08;
+    border-top: 1px solid var(--line-dark);
+    padding-top: clamp(56px, 7vw, 80px);
+    font-size: 0.9375rem;
+    color: var(--text-muted-dark);
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    padding-bottom: 48px;
+  }
+
+  .footer__brand img {
+    height: 56px;
+    width: auto;
+    margin-bottom: 16px;
+  }
+
+  .footer__brand p {
+    max-width: 18rem;
+  }
+
+  .footer__title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--paper);
+    margin-bottom: 16px;
+  }
+
+  .footer ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 36px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    overflow-wrap: anywhere;
+  }
+
+  .footer a:hover {
+    color: var(--yellow);
+  }
+
+  .footer a :global(svg) {
+    flex: none;
+    color: var(--yellow);
+  }
+
+  .footer__text + .footer__text {
+    margin-top: 12px;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid var(--line-dark);
+    padding-block: 24px;
+    font-size: 0.8125rem;
+    color: var(--text-soft-dark);
+  }
+
+  @media (max-width: 960px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    .footer__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+  }
+</style>
